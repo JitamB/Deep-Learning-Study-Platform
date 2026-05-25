@@ -6,7 +6,7 @@ import './styles/global.css'
 import './styles/layout.css'
 import './styles/components.css'
 
-const basePath = '/Deep-Learning-Study-Platform/'
+const basePath = '/Deep-Learning-Study-Platform'
 const searchParams = new URLSearchParams(window.location.search)
 const redirectedPath = searchParams.get('p')
 
@@ -14,13 +14,13 @@ if (redirectedPath) {
   window.history.replaceState(
     null,
     '',
-    `${basePath}${redirectedPath.replace(/^\//, '')}`
+    `${basePath}/${redirectedPath.replace(/^\//, '')}`
   )
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basePath}>
       <App />
     </BrowserRouter>
   </React.StrictMode>
