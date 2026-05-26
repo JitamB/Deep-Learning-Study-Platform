@@ -84,7 +84,7 @@ function SectionWhyRNN() {
       <H2>55.1.2 · What RNNs do differently</H2>
       <P>An RNN introduces a hidden state h_t that is updated at each timestep — a form of memory that carries information forward. The same weight matrices W_x and W_h are shared across every timestep (weight sharing across time).</P>
       <Mx block>{"h_t = tanh(W_h · h_{t-1}  +  W_x · x_t  +  b)"}</Mx>
-      <P>This single equation gives RNNs three properties that ANNs lack: (1) temporal memory via h_{t-1}, (2) variable-length input by running for as many steps as needed, (3) weight sharing across all timesteps — the same W_x and W_h see every token.</P>
+      <P c="This single equation gives RNNs three properties that ANNs lack: (1) temporal memory via h_{t-1}, (2) variable-length input by running for as many steps as needed, (3) weight sharing across all timesteps — the same W_x and W_h see every token." />
 
       <H2>55.3.2 · Applications</H2>
       <Table
@@ -711,14 +711,14 @@ function SectionLSTM() {
       </div>
 
       <H2>62.1.4–5 · Complete LSTM equations</H2>
-      <P>Step through each gate below. All gates concatenate [h_{t-1}, x_t] — this is the input to every gate computation:</P>
+      <P c="Step through each gate below. All gates concatenate [h_{t-1}, x_t] — this is the input to every gate computation:" />
       <LSTMGateStepper />
 
       <H2>62.1.5 · All six equations in one place</H2>
       <Mx block>{"Forget gate:     f_t = σ( W_f · [h_{t-1}, x_t] + b_f )\nInput gate:      i_t = σ( W_i · [h_{t-1}, x_t] + b_i )\nCell candidate:  g_t = tanh( W_g · [h_{t-1}, x_t] + b_g )\nCell state:      c_t = f_t ⊙ c_{t-1}  +  i_t ⊙ g_t\nOutput gate:     o_t = σ( W_o · [h_{t-1}, x_t] + b_o )\nHidden state:    h_t = o_t ⊙ tanh(c_t)\n\nParameter count per LSTM cell (input_dim=D, hidden=H):\n  4 weight matrices: 4 × H × (D + H)  +  4 × H (biases)\n  = 4H(D + H + 1)\n\nExample H=128, D=64: 4×128×(64+128+1) = 98,816  (4× SimpleRNN)"}</Mx>
 
       <H2>61.1.3 · Why LSTM solves vanishing gradients</H2>
-      <P>The cell state update c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t creates an additive gradient path:</P>
+      <P c="The cell state update c_t = f_t ⊙ c_{t-1} + i_t ⊙ g_t creates an additive gradient path:" />
       <Mx block>{"∂c_t/∂c_{t-1}  =  f_t  (just the forget gate values)\n\n∂L/∂c_k  =  ∂L/∂c_T · ∏_{t=k+1}^{T}  f_t\n\nKey: if f_t ≈ 1 (keep gate open), the product = 1 · 1 · 1 … = 1\n  → gradient flows unchanged over arbitrary distances!\n\nCompare to RNN:  ∂L/∂h_k = ∂L/∂h_T · ∏ W_h^T · diag(tanh') → 0 exponentially"}</Mx>
 
       <H2>57.0.6 · IMDB sentiment analysis — full code</H2>
