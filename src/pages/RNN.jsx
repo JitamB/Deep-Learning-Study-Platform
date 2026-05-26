@@ -17,7 +17,7 @@ function SectionWhyRNN() {
       </Note>
 
       <H2>55.1.3 · What is sequential data?</H2>
-      <P>Sequential data is any data where order matters — swapping two elements changes the meaning. This covers an enormous fraction of real-world data:</P>
+      <P c="Sequential data is any data where order matters — swapping two elements changes the meaning. This covers an enormous fraction of real-world data:"/>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(4,1fr)", gap:10, margin:"0.75rem 0" }}>
         {[
           { title:"Text / NLP", icon:"ti-letter-case", color:"info",
@@ -40,7 +40,7 @@ function SectionWhyRNN() {
       </div>
 
       <H2>55.2 · Why traditional ANNs fail for sequences</H2>
-      <P>Three fundamental structural problems prevent vanilla ANNs and CNNs from handling sequential data well:</P>
+      <P c="Three fundamental structural problems prevent vanilla ANNs and CNNs from handling sequential data well:"/>
       <div style={{ display:"grid", gridTemplateColumns:"repeat(3,1fr)", gap:10, margin:"0.75rem 0" }}>
         {[
           { n:"1", title:"No temporal memory", color:"danger",
@@ -59,7 +59,7 @@ function SectionWhyRNN() {
       </div>
 
       <H2>55.2.5 · Zero padding — the naive fix and why it fails</H2>
-      <P>The standard ANN workaround is to pad all sequences to the maximum length with zeros, then use a fixed-size input layer.</P>
+      <P c="The standard ANN workaround is to pad all sequences to the maximum length with zeros, then use a fixed-size input layer."/>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, margin:"0.75rem 0" }}>
         <div style={{ border:"0.5px solid var(--color-border-tertiary)", borderRadius:"var(--border-radius-md)", padding:"12px 13px" }}>
           <div style={{ fontWeight:500, fontSize:13, color:"var(--color-text-primary)", marginBottom:7 }}>Zero padding approach</div>
@@ -81,12 +81,12 @@ function SectionWhyRNN() {
         </div>
       </div>
 
-      <H2>55.1.2 · What RNNs do differently</H2>
-      <P>An RNN introduces a hidden state h_t that is updated at each timestep — a form of memory that carries information forward. The same weight matrices W_x and W_h are shared across every timestep (weight sharing across time).</P>
+      <H2>What RNNs do differently</H2>
+      <P c="An RNN introduces a hidden state h_t that is updated at each timestep — a form of memory that carries information forward. The same weight matrices W_x and W_h are shared across every timestep (weight sharing across time"/>
       <Mx block>{"h_t = tanh(W_h · h_{t-1}  +  W_x · x_t  +  b)"}</Mx>
       <P c="This single equation gives RNNs three properties that ANNs lack: (1) temporal memory via h_{t-1}, (2) variable-length input by running for as many steps as needed, (3) weight sharing across all timesteps — the same W_x and W_h see every token." />
 
-      <H2>55.3.2 · Applications</H2>
+      <H2>Applications</H2>
       <Table
         heads={["Application","Input","Output","RNN type"]}
         rows={[
@@ -215,15 +215,15 @@ function SectionArchitecture() {
   return (
     <div>
       <H2>56.1.3 · Data format for RNNs</H2>
-      <P>RNNs expect 3D input tensors. The three dimensions are: batch, timesteps, features.</P>
+      <P c="RNNs expect 3D input tensors. The three dimensions are: batch, timesteps, features."/>
       <Mx block>{"Input shape:  (batch_size, timesteps, input_features)\n\nExample — 32 sentences, each 100 tokens, each token a 64-dim embedding:\n  → (32, 100, 64)\n\nExample — 32 ECG samples, each 500 time steps, single channel:\n  → (32, 500, 1)"}</Mx>
 
       <H2>56.1.4–5 · RNN cell equations</H2>
-      <P>The core RNN cell computes two things at each timestep: a new hidden state h_t, and optionally an output y_t. The same weights W_h, W_x, W_y are shared across every timestep.</P>
+      <P c="The core RNN cell computes two things at each timestep: a new hidden state h_t, and optionally an output y_t. The same weights W_h, W_x, W_y are shared across every timestep."/>
       <Mx block>{"Hidden state:  h_t = tanh(W_h · h_{t-1}  +  W_x · x_t  +  b_h)\nOutput:        y_t  = W_y · h_t  +  b_y\n\nDimensions:\n  x_t   ∈ ℝ^{input_dim}     (current token embedding)\n  h_t   ∈ ℝ^{hidden_units}  (hidden state / memory)\n  W_x   ∈ ℝ^{hidden × input}\n  W_h   ∈ ℝ^{hidden × hidden}\n  W_y   ∈ ℝ^{output × hidden}"}</Mx>
 
       <H2>56.3.2 · Unfolding through time</H2>
-      <P>An RNN with a single recurrent cell can be 'unrolled' into a deep feedforward network where each 'layer' corresponds to a timestep. This unrolled view is how BPTT (backpropagation through time) is derived.</P>
+      <P c="An RNN with a single recurrent cell can be 'unrolled' into a deep feedforward network where each 'layer' corresponds to a timestep. This unrolled view is how BPTT (backpropagation through time) is derived."/>
       <div style={{ background:"var(--color-background-secondary)", border:"0.5px solid var(--color-border-tertiary)", borderRadius:"var(--border-radius-lg)", padding:"1rem", margin:"0.75rem 0", overflowX:"auto" }}>
         <div style={{ display:"flex", alignItems:"center", gap:0, minWidth:580 }}>
           {[
@@ -257,7 +257,7 @@ function SectionArchitecture() {
       </div>
 
       <H2>56.3.3 · Step-by-step forward propagation</H2>
-      <P>Step through the forward pass of an RNN processing the sentence 'I love deep learning' for sentiment analysis:</P>
+      <P c="Step through the forward pass of an RNN processing the sentence 'I love deep learning' for sentiment analysis:"/>
       <ForwardPropStepper />
 
       <H2>56.2 · Keras SimpleRNN — implementation & parameter count</H2>
@@ -290,7 +290,7 @@ model2 = keras.Sequential([
 ])`}</Code>
 
       <H2>56.4.5 · Simplified matrix view</H2>
-      <P>The two separate matrix multiplications can be written as a single concatenated operation, which is how most implementations compute it:</P>
+      <p c="The two separate matrix multiplications can be written as a single concatenated operation, which is how most implementations compute it:"/>
       <Mx block>{"h_t = tanh( [W_h | W_x] · [h_{t-1}; x_t]  +  b )\n\n    = tanh( W · concat(h_{t-1}, x_t) + b )\n\nwhere W ∈ ℝ^{hidden × (hidden + input)}"}</Mx>
 
       <H2>Interview Q&A</H2>
@@ -421,7 +421,7 @@ function SectionRNNTypes() {
       </Note>
 
       <H2>58.1.3 · The four canonical RNN architectures</H2>
-      <P>Select a type below to see its data flow. Blue = RNN cells, green = inputs, red = outputs:</P>
+      <P c="Select a type below to see its data flow. Blue = RNN cells, green = inputs, red = outputs:"/>
       <div style={{ display:"flex", gap:6, flexWrap:"wrap", marginBottom:"0.85rem" }}>
         {types.map(t=>(
           <button key={t.id} onClick={()=>setSel(t.id)} style={{ background:sel===t.id?"var(--color-background-info)":"var(--color-background-secondary)", border:"0.5px solid "+(sel===t.id?"var(--color-border-info)":"var(--color-border-tertiary)"), borderRadius:"var(--border-radius-md)", padding:"5px 12px", cursor:"pointer", fontSize:13, color:sel===t.id?"var(--color-text-info)":"var(--color-text-secondary)", fontWeight:sel===t.id?500:400 }}>
@@ -544,9 +544,9 @@ function SectionBPTT() {
   return (
     <div>
       <H2>59.1.5 · Backpropagation through time (BPTT)</H2>
-      <P>BPTT is just standard backpropagation applied to the unrolled RNN. The key difference: the same weight matrices appear at every timestep, so their gradients are the SUM of contributions from all timesteps.</P>
+      <P c="BPTT is just standard backpropagation applied to the unrolled RNN. The key difference: the same weight matrices appear at every timestep, so their gradients are the SUM of contributions from all timesteps."/>
       <Mx block>{"Total loss:  L = Σ_{t=0}^{T}  L_t(ŷ_t, y_t)\n\nGradient of W_h (shared across all steps):\n  ∂L/∂W_h  =  Σ_{t=0}^{T}  ∂L_t/∂W_h\n\nTo compute ∂L_t/∂W_h, chain rule back through time:\n  ∂L_t/∂W_h  =  Σ_{k=0}^{t}  (∂L_t/∂h_t) · (∏_{j=k+1}^{t} ∂h_j/∂h_{j-1}) · (∂h_k/∂W_h)"}</Mx>
-      <P>The product ∏ ∂h_j/∂h_{j-1} is the source of both problems: vanishing and exploding gradients.</P>
+      <P c="The product ∏ ∂h_j/∂h_{j-1} is the source of both problems: vanishing and exploding gradients."/>
 
       <H2>59.1.6 · Gradient calculation at each step</H2>
       <Mx block>{"h_t = tanh(W_h · h_{t-1} + W_x · x_t + b)\n\n∂h_t/∂h_{t-1}  =  W_h^T · diag(1 - h_t²)\n\n  where diag(1 - h_t²) is the Jacobian of tanh (element-wise).\n\nThe chain from t back to k:\n  ∂h_t/∂h_k  =  ∏_{j=k+1}^{t}  W_h^T · diag(1 - h_j²)"}</Mx>
@@ -554,7 +554,7 @@ function SectionBPTT() {
       <H2>60.2.5 · Vanishing gradient — mathematical proof</H2>
       <P c="For tanh activation, the derivative is bounded: |tanh'(z)| = |1 - tanh²(z)| ≤ 1. If the maximum singular value σ_max of W_h satisfies σ_max < 1, then:" />
       <Mx block>{"|| ∂h_t/∂h_k ||  ≤  (σ_max · 1)^{t-k}  =  σ_max^{t-k}\n\nIf σ_max < 1:  σ_max^{t-k} → 0  exponentially as (t-k) grows.\n\nConsequence: for a sequence of length T=50 with σ_max=0.9:\n  Gradient at t=0: 0.9^50 ≈ 0.005  (0.5% of original)\n  Gradient at t=0 for T=100: 0.9^100 ≈ 0.000027  (near zero)"}</Mx>
-      <P>Drag the sliders below to see how gradient magnitude decays at earlier timesteps:</P>
+      <P c="Drag the sliders below to see how gradient magnitude decays at earlier timesteps:"/>
       <GradientDecayViz />
 
       <H2>60.2.7 · Exploding gradient</H2>
@@ -694,7 +694,7 @@ function SectionLSTM() {
       </Note>
 
       <H2>61.2.5 · Dual memory architecture</H2>
-      <P>LSTM maintains two vectors per timestep, compared to RNN's one:</P>
+      <P c="LSTM maintains two vectors per timestep, compared to RNN's one:"/>
       <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:10, margin:"0.75rem 0" }}>
         <div style={{ background:"var(--color-background-info)", border:"0.5px solid var(--color-border-info)", borderRadius:"var(--border-radius-md)", padding:"12px 13px" }}>
           <div style={{ fontWeight:500, fontSize:13.5, color:"var(--color-text-info)", marginBottom:7 }}>c_t — Cell state (long-term memory)</div>
@@ -815,7 +815,7 @@ function SectionGRU() {
       </Note>
 
       <H2>65.2 · Why GRU exists — motivation</H2>
-      <P>LSTM has 4 gate matrices and dual memory (c_t, h_t) — expressive but expensive. For many tasks, especially smaller datasets, this extra capacity is unnecessary and the added parameters increase overfitting risk. GRU collapses the architecture to its minimal effective form.</P>
+      <P c="LSTM has 4 gate matrices and dual memory (c_t, h_t) — expressive but expensive. For many tasks, especially smaller datasets, this extra capacity is unnecessary and the added parameters increase overfitting risk. GRU collapses the architecture to its minimal effective form."/>
 
       <H2>65.6 · GRU architecture — equations</H2>
       <Mx block>{"Reset gate:       r_t = σ( W_r · [h_{t-1}, x_t] + b_r )\n  → How much of h_{t-1} to 'forget' when computing candidate\n\nUpdate gate:      z_t = σ( W_z · [h_{t-1}, x_t] + b_z )\n  → How much of h_{t-1} to keep vs. replace with new content\n\nCandidate state:  h̃_t = tanh( W_h · [r_t ⊙ h_{t-1}, x_t] + b_h )\n  → New candidate hidden state, conditioned on reset gate\n\nNew hidden state: h_t = (1 - z_t) ⊙ h_{t-1}  +  z_t ⊙ h̃_t\n  → Interpolate: z_t≈0 keeps old, z_t≈1 takes new candidate\n\nParameter count (input_dim=D, hidden=H):\n  3 weight matrices: 3H(D+H) + 3H biases = 3H(D+H+1)\n  Example H=128, D=64: 3×128×193 = 74,112  (vs LSTM: 98,816)"}</Mx>
@@ -923,8 +923,8 @@ model_gru = keras.Sequential([
 # Why NOT too many layers? Diminishing returns + BPTT across layers
 # Best practice: 2-4 stacked layers; deeper → use Transformers instead`}</Code>
 
-      <H2>66.2.2 · Bidirectional RNNs — motivation</H2>
-      <P>A standard RNN at timestep t can only use context from the past (x_0, …, x_{t-1}). For many NLP tasks, future context is equally important: in 'I went to the bank to ___ money', 'bank' can only be correctly disambiguated by reading ahead to 'money'. A Bidirectional RNN runs two RNNs in parallel:</P>
+      <H2>Bidirectional RNNs — motivation</H2>
+      <P c="A standard RNN at timestep t can only use context from the past (x_0, …, x_{t-1}). For many NLP tasks, future context is equally important: in 'I went to the bank to ___ money', 'bank' can only be correctly disambiguated by reading ahead to 'money'. A Bidirectional RNN runs two RNNs in parallel:"/>
       <Mx block>{"Forward RNN (→):   h_t^f = RNN_f( x_0, x_1, …, x_t )\n  processes left to right; h_t^f has access to past context\n\nBackward RNN (←):  h_t^b = RNN_b( x_T, x_{T-1}, …, x_t )\n  processes right to left; h_t^b has access to future context\n\nMerged output at t:  ỹ_t = merge( h_t^f, h_t^b )\n  merge modes: Concatenate (default), Add, Multiply, Average"}</Mx>
 
       <H2>66.2.4 · Bidirectional RNN — Keras</H2>
