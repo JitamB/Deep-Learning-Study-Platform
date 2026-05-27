@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate, useParams, useLocation } from 'react-router-dom';
 import Sidebar from './components/layout/Sidebar.jsx';
 import { MODULES, getModule, getCategoryForModule } from './data/nav.js';
+import { Helmet } from 'react-helmet-async';
 
 /* ── Lazy page imports ──────────────────────────────────────── */
 import { lazy, Suspense } from 'react';
@@ -45,6 +46,7 @@ function ModulePage() {
   const { id } = useParams();
   const numId = Number(id);
   const PageComponent = PAGE_MAP[numId];
+  const mod = getModule(numId);
 
   if (!PageComponent) {
     return (
@@ -57,6 +59,14 @@ function ModulePage() {
 
   return (
     <Suspense fallback={<PageLoader />}>
+      {mod && (
+        <Helmet>
+          <title>{mod.title} | Deep Learning Guide</title>
+          <meta name="description" content={`Learn about ${mod.title} in this comprehensive Deep Learning module.`} />
+          <meta property="og:title" content={`${mod.title} | Deep Learning Guide`} />
+          <meta property="twitter:title" content={`${mod.title} | Deep Learning Guide`} />
+        </Helmet>
+      )}
       <PageComponent />
     </Suspense>
   );

@@ -5,6 +5,7 @@ import App from './App'
 import './styles/global.css'
 import './styles/layout.css'
 import './styles/components.css'
+import { HelmetProvider } from 'react-helmet-async'
 
 const basePath = '/Deep-Learning-Study-Platform'
 const searchParams = new URLSearchParams(window.location.search)
@@ -20,8 +21,10 @@ if (redirectedPath) {
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <BrowserRouter basename={basePath}>
-      <App />
-    </BrowserRouter>
+    <HelmetProvider>
+      <BrowserRouter basename={basePath}>
+        <App />
+      </BrowserRouter>
+    </HelmetProvider>
   </React.StrictMode>
 )
